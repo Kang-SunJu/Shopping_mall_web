@@ -1,0 +1,76 @@
+/* story_common.css */
+#wrap {
+	overflow:hidden;
+    width: 1280px;
+    margin: 5px auto;
+    font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;	
+}
+#content {
+    margin: 0 auto;
+    overflow: hidden;
+}
+.detailLeft {
+    width: 220px;
+    float: left;
+}
+
+.detail_submenu4 {
+    background-repeat: no-repeat;
+    height: 435px;
+    margin-left: 26px;
+}
+
+.detail_submenuBox {
+    padding: 32px 25px;
+    text-align: center;
+}
+
+.detail_submenuBox p:nth-child(1) {
+    font-size: 24px;
+    color: #fff;
+    display: inline-block;
+    background-color: #986457;
+    width: 150px;
+    line-height: 90px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.detail_submenuBox p:nth-child(2) {
+    font-size: 20px;
+    color: #703628;
+    display: inline-block;
+    background-color: #f3f3f3;
+    width: 150px;
+    line-height: 90px;
+     margin: 0;
+     font-weight: 500;
+}
+
+.detail_submenuList {
+    border: 1px solid #f3f3f3;
+    font-size: 18px;
+    width: 148px;
+}
+
+.detail_submenuList ul {
+    font-weight: normal;
+    margin: 15% 5%;
+}
+
+.detail_submenuList ul:nth-child(2) {
+    font-weight: normal;
+    margin: 15% 0;
+}
+
+.detail_submenuList a {
+    color: #333333;
+}
+
+#content_main{
+width: 80%;
+border: 1px solid black;
+margin-top : 5%;
+margin: 5% auto auto auto;
+}

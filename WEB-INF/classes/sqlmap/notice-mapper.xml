@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice.mapper">
+
+<select id="total" resultType="integer">
+select count(*) from notice <include refid="search" />
+</select>
+
+<delete id="delete">
+delete from notice where id = #{id}
+</delete>
+
+<update id="update">
+update notice set title = #{title}, content = #{content}
+<!-- 	<if test=" filename != '' ">  -->
+	, filename = #{filename}, filepath = #{filepath}
+<!-- 	</if> -->
+where id = #{id}
+</update>
+
+<update id="readCount">
+update notice set readcnt = readcnt+1 where id = #{id}
+</update>
+
+<select id="detail" resultType="notice.vo.NoticeVO">
+select * from notice where id = #{id}
+</select>
+
+<sql id="search">
+	<if test="search=='writer' or search=='title' or search=='content'">
+	where ${search} like '%' || #{keyword} || '%'
+	</if>
+	<if test="search=='all'" >
+	where title like '%' || #{keyword} || '%'
+	or content like '%' || #{keyword} || '%'
+	or writer like '%' || #{keyword} || '%'
+	</if>
+</sql>
+
+<select id="list" resultType="notice.vo.NoticeVO">
+select * from 
+(select rownum no, n.* from 
+(select * from notice  <include refid="search"/>  
+order by root, step desc) n
+order by no desc)
+where no between #{beginList} and #{endList}
+</select>
+
+<insert id="insert">
+insert into notice(id, root, title, writer, content, filename, filepath)
+values (seq_notice.nextval, seq_notice.currval, #{title}, #{writer}, #{content}, #{filename}, #{filepath} )
+</insert>
+
+<insert id="reply_insert">
+{ call declare begin 
+update notice set step=step+1 
+where root = #{root} and step <![CDATA[ > ]]>   #{step};
+
+insert into notice (id, root, step, indent, title, 
+		writer, content, filename, filepath)
+values (seq_notice.nextval, #{root}, #{step}+1, #{indent}+1,
+ #{title}, #{writer}, #{content}, #{filename}, #{filepath} );
+end		
+}
+</insert>
+<!-- 답글작성시 root는 원글의 root 를 저장한다. -->
+<!-- 답글작성시 step은 원글의 step+1 을 저장한다. -->
+<!-- 답글작성시 indent는 원글의 indent+1 을 저장한다. -->
+<!-- 답글작성시 root 가 같은 데이터행에 대해 원글의 step보다 더 큰 step을 가진 데이터행의 step은 step+1 을 저장한다. -->
+
+</mapper>
+
+
+
+

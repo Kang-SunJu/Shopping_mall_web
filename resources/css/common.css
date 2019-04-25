@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+body {
+	text-align: center;
+	font-size: 16px;
+	font-family: NanumGothic;
+	san-serif;
+	color: #222;
+}
+
+@font-face {
+	font-family: NanumGothic;
+	src: url("./font/NanumGothic.woff") format("woff");
+}
+
+/* table {
+	margin: 10px auto;
+}
+
+table td, table th {
+	padding: 10px 15px;
+	border-bottom: 1px solid #eee;
+}
+ */
+a:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+input[type=text], input[type=password] {
+	height: 22px;
+	padding-left: 5px;
+}
+
+.center {
+	text-align: center;
+}
+
+.left {
+	text-align: left;
+}
+
+.right {
+	text-align: right;
+}
+
+.btn-fill, .btn-empty {
+	padding: 4px 14px;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid #ff95a1;
+	border-radius: 3px;
+	box-shadow: 0 0 1px 1px #eee;
+	text-decoration: none;
+}
+
+.btn-fill:hover, .btn-empty:hover {
+	text-decoration: none;
+}
+
+.btn-fill {
+	background-color: #ff95a1;
+	color: #ffffff;
+}
+
+.btn-empty {
+	background-color: #ff95a1;
+	color: #ffffff;
+}
+
+.btn-fill-small {
+	text-align: center;
+	cursor: pointer;
+	border-radius: 3px;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 1px 10px;
+	border: 1px solid #ff95a1;
+	box-shadow: 2px 2px 3px #ff95a1;
+	background-color: #ff95a1;
+	color: #ffffff;
+}
+
+.btn-fill-small:hover {
+	text-decoration: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}

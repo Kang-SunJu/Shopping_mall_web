@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order.mapper">
+
+	<resultMap id="MapBuyListVO" type="buy.vo.BuyListVO">
+		<result property="userid" column="userid" />
+		<result property="product_id" column="product_id" />
+		<result property="su" column="su" />
+		<result property="price" column="price" />
+		<result property="phones" column="phone" />
+		<result property="addresses" column="address" />
+		<result property="buy_date" column="buy_date" />
+	</resultMap>
+
+	<resultMap id="MapProductVO" type="product.vo.ProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="product_name" column="product_name" />
+		<result property="product_price" column="product_price" />
+		<result property="product_menu" column="product_menu" />
+		<result property="product_img_path" column="product_img_path" />
+		<result property="detail_id" column="detail_id" />
+		<!-- <collection property="productVO" resultMap="ProductVO"/> -->
+	</resultMap>
+
+	<!-- insert into buylist (product_id, su, address, phone, userid, ordername) 
+		values (#{product_id}, #{su}, #{addresses}, #{phones}, #{userid}, #{ordername}) -->
+	<insert id="order">
+		<foreach collection="list" item="item" open="INSERT ALL"
+			close="select * from dual">
+			into buylist (product_id, su, address, phone, userid, ordername) values
+			( #{item.product_id}, #{item.su}, #{vo.addresses}, #{vo.phones},
+			#{vo.userid}, #{vo.ordername} )
+		</foreach>
+	</insert>
+	<insert id="orderdum">
+		insert into buylistdummy (product, su, price, userid) values (#{product},
+		#{su}, #{price}, #{userid})
+	</insert>
+	<delete id="deletedum">
+		delete from buylistdummy where userid = #{userid}
+	</delete>
+
+	<select id="buyList" resultMap="MapBuyListVO">
+		select b.orderno, d.product_img_path, b.ordername, b.address , b.phone, b.su, p.product_name, b.su * p.product_price as price, b.buy_date,
+		d.detail_id
+		from buylist b, product p, (select * from product_detail where detail_id in (select min(detail_id) from product_detail group by product_id)) d 
+		where b.userid= #{userid} and b.product_id = p.product_id and p.product_id = d.product_id(+)
+		order by p.product_id
+	</select>
+</mapper>

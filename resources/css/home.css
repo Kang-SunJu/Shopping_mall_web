@@ -1,0 +1,413 @@
+@charset "UTF-8";
+
+
+body {
+	margin: 0;
+	padding: 0;
+	background: ffffff;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+}
+
+/* 슬라이드 css */
+.animation_canvas {
+	overflow: hidden;
+	position: relative;
+	width: 1280px;
+	height: 600px;
+	margin: 0 auto;
+}
+
+.slider_panel {
+	width: 6000px;
+	position: relative;
+}
+
+.slider_image {
+	float: left;
+	width: 1280px;
+	height: 600px;
+}
+
+.control_panel {
+	position: absolute;
+	top: 570px;
+	left: 610px;
+	height: 20px;
+	overflow: hidden;
+}
+
+.control_button {
+	width: 20px;
+	height: 60px;
+	position: relative;
+	float: left;
+	cursor: pointer;
+}
+
+.control_button:hover {
+	top: -22px;
+}
+
+.control_button.active {
+	top: -40px;
+}
+
+/* 비디오 영역 */
+.main_video_area{
+	width: 100%;
+	height: 500px;
+	background-color: #ffedef;
+	margin: 0 auto;
+}
+
+.video_area{
+	width: 1280px;
+	height: 500px;
+	display: inline-block;
+	position: relative;
+	margin: 0 auto;
+}
+
+.video_css {
+	width: auto;
+	height: 380px;
+	position: absolute;
+	top: 60px;
+	left: 70px;
+}
+
+.video_text_area {
+	width: 460px;
+	height: 380px;
+	position: absolute;
+	top: 60px;
+	right: 30px;
+	text-align: left;
+}
+
+.video_text_title {
+	display: inline-block;
+	font-size: 30px;
+	padding-left: 30px;
+	padding-top: 20px;
+	margin: 0;
+	color: #222222;
+	font-weight: 500;
+}
+
+.video_text_content {
+	display: inline-block;
+	font-size: 18px;
+	padding-left: 30px;
+	padding-top: 20px;
+	margin: 0;
+	color: #333333;
+}
+
+/* 스크롤 이벤트 영역  */
+.bgimg-1 {
+	position: relative;
+	opacity: 0.8;
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 100%;
+}
+
+.caption {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	color: #000;
+	text-align: center;
+}
+
+.caption span.border {
+	background-color: #111111;
+	color: #ffffff;
+	font-size: 25px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding: 20px;
+	border-radius: 20px;
+}
+
+@media only screen and (max-device-width: 1024px) {
+	.bgimg-1 {
+		background-attachment: scroll;
+	}
+}
+
+/* 중간 컨텐츠 타이틀 */
+.mid_con_title {
+	height: 50px; 
+	width: 1280px; 
+	background-color: #ffffff; 
+	margin: 8px auto 0 auto; 
+	position: relative;
+	font-weight: 500;
+	font-size: 20px;
+}
+
+.mid_con_title_menu {
+	width: 800px;
+	line-height: 48px;
+	display: inline-block; 
+	position: absolute; 
+	top: 0; 
+	left: 0;
+	text-align: left;
+	border-bottom: 2px solid #ffb6be;
+	padding-left: 5px;
+}
+
+
+.mid_con {
+	margin: 0 auto;
+	width: 1280px;
+	height: 413px;
+	position: relative;
+	position: relative;
+}
+
+/* 메뉴 슬라이드 영역 */
+.demo {
+	width: 800px;
+	height: 200px;
+	background-color: #ffffff;
+	display: inline-block;
+	position: absolute;
+	top: 52px;
+	left: 0;
+}
+
+.content-slider {
+	list-style: none outside none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.demo .item {
+	margin-bottom: 20px;
+}
+
+.content-slider li {
+	text-align: center;
+}
+
+.menu_img_css {
+	margin: 0 5px;
+	padding: 0;
+	height: 130px;
+	width: 150px;
+	display: inline-block;
+}
+
+/* 공지 게시판 */
+.mid_notice {
+	width: 390px;
+	height: 162px;
+	background-color: #ffffff;
+	display: inline-block;
+	position: absolute;
+	top: 250px;
+	left: 0;
+	text-align: left;
+}
+
+.notice_txt {
+	width: 270px;
+	font-size: 16px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: left;
+	margin-bottom: 1px;
+	cursor: pointer;
+	margin-right: 0;
+	display: inline-block;
+}
+
+.notice_txt:hover {
+	text-decoration: underline;
+	color: #777777;
+}
+
+.notice_date {
+	width: 80px;
+	display: inline-block;
+	text-align: right;	
+	font-size: 14px;
+	color: #aaa;
+	font-weight: 300;
+}
+
+.notice_th {
+	height: 20px;
+	width: 80px;
+	background-color: #ff95a1;
+	color: #ffffff;
+	border: 1px solid #ff95a1;
+	width: 80px;
+}
+
+/* 아이콘 영역 */
+.mid_con_btn {
+	width: 400px;
+	height: 162px;
+	background-color: #ffffff;
+	display: inline-block;
+	position: absolute;
+	top: 250px;
+	left: 400px;
+	margin: 0 auto;
+}
+
+/* .mid_con_btn1, .mid_con_btn2, .mid_con_btn3, .mid_con_btn4 {
+	width: 196px;
+	height: 82px;
+	background-color: #ffffff;
+	float: left;
+	display: inline-block;
+	position: absolute;
+	border: 1px solid #dddddd;
+
+} */
+
+.mid_con_btn1, .mid_con_btn3 {
+	left: 0;
+}
+
+.mid_con_btn2, .mid_con_btn4 {
+	right: 0;
+}
+
+.mid_con_btn1, .mid_con_btn2 {
+	top: 0;
+}
+
+.mid_con_btn3, .mid_con_btn4 {
+	bottom : 0;
+}
+
+/* 인스타 영역 */
+.instar_name_area {
+	width: 470px;
+	max-width: 470px;
+	height: 50px;
+	max-height: 50px;
+	background-color: #d1333e;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: center;
+	color: #ffffff;
+	font-size: 22px;
+	line-height: 50px;
+}
+
+.instar_area {
+	width: 470px;
+	max-width: 470px;
+	height: 363px;
+	max-height: 363px;
+	background-color: #ffffff;
+	display: inline-block;
+	position: absolute;
+	top: 50px;
+	right: 0;
+	text-align: right;
+}
+
+.insta_profileImg {
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+	float: left;	
+	margin: 5px 15px 0 10px;;
+}
+
+.insta_pp {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	border: 1px solid #ccc;
+}
+
+.insta_name {
+	width: 100%;
+	height: 50px;
+	
+}
+
+#instaPics {  
+ max-width: 470px;  
+ overflow-y: scroll;
+} 
+.insta-img {
+	width:150px;
+	height:150px
+}
+
+.insta-box {  
+ position: relative;  
+ width: 453px;  
+ height: 150px;  
+ float: left;  
+ margin: 20px 0;  
+}  
+.image-layer {  
+ overflow: hidden;  
+ width: 150px;  
+ height: 150px;  
+}  
+.image-layer img {  
+ max-width: 100%;  
+}  
+.caption-layer {  
+ position: absolute;  
+ top: 0;  
+ right: 0;
+ background: #fff;
+ padding: 0 5px;
+ height: 150px;  
+ width: 225px;  
+ box-sizing: border-box;  
+ font-size: 16px;  
+ color: #333;  
+ text-align: left;
+ overflow: hidden;
+}  
+
+.insta-caption {
+	margin : 0;
+	width: 205px;
+	float: left;
+	height: 120px;
+	overflow: hidden;
+	margin-left: 5px;
+}
+
+.insta-likes {  
+ position: absolute;
+ right: 10px;
+ bottom: 0px;
+  font-size: 16px;  
+  color: #aaa;
+}  
+
+.heart {
+	color: #d1333e;
+}
+
+.insta_line {
+	background-color: #eee;
+	height: 1px;
+	width: 100%;
+	display: inline-block;
+	margin: 10px 0;
+}
