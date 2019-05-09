@@ -36,7 +36,7 @@ table td, table th {
 				<c:forEach items="${mainSlideList }" var="mainSlideList">
 					<tr>
 						<td colspan="4"><img style="width: 500px;"
-							src="http://<%=ip %>/changego/resources${mainSlideList.mspath }" /></td>
+							src="http://<%=ip %>/seonju/resources${mainSlideList.mspath }" /></td>
 					</tr>
 					<tr>
 						<td style="text-align: left;">${mainSlideList.msname }</td>
@@ -52,7 +52,7 @@ table td, table th {
 				<c:forEach items="${menuSlideList }" var="menuSlideList">
 					<tr>
 						<td colspan="3"><img style="width: 150px;"
-							src="http://<%=ip %>/changego/resources${menuSlideList.menupath }" /></td>
+							src="http://<%=ip %>/seonju/resources${menuSlideList.menupath }" /></td>
 						<td>${menuSlideList.menuContent }</td>
 						<td width="60px;"><a style="text-decoration: none;"
 							onclick="if(confirm('정말 삭제하시겠습니까?')){location='menuDelete.fi?menuId=${menuSlideList.menuId}'}">삭제</a></td>
@@ -65,7 +65,7 @@ table td, table th {
 				<c:forEach items="${videoList }" var="videoList">
 					<tr>
 						<td colspan="2"><video
-								src="http://<%=ip %>/changego/resources${videoList.videoPath }"
+								src="http://<%=ip %>/seonju/resources${videoList.videoPath }"
 								type="video/mp4" controls="controls"></video></td>
 					</tr>
 					<tr>

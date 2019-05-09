@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<%-- <c:forEach items="${videoList }" var="videoList">
-				<video src="/changego/resources${videoList.videoPath }" type="video/mp4" controls="controls"
+				<video src="/seonju/resources${videoList.videoPath }" type="video/mp4" controls="controls"
 				width="400"></video>
 			</c:forEach> --%>
 	</div>
@@ -84,7 +84,7 @@
 					<c:forEach items="${menuSlideList }" var="menuSlideList" begin="0"
 						end="8">
 						<li class="content-slider-con"><img class="menu_img_css"
-							src="changego/resources${menuSlideList.menupath }"
+							src="seonju/resources${menuSlideList.menupath }"
 							alt="메뉴 이미지" /> <span><a style="text-decoration: none;">${menuSlideList.menuContent }</a></span>
 						</li>
 					</c:forEach>
