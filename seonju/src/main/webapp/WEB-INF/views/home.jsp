@@ -84,7 +84,7 @@
 					<c:forEach items="${menuSlideList }" var="menuSlideList" begin="0"
 						end="8">
 						<li class="content-slider-con"><img class="menu_img_css"
-							src="seonju/resources${menuSlideList.menupath }"
+							src="/seonju/resources${menuSlideList.menupath }"
 							alt="메뉴 이미지" /> <span><a style="text-decoration: none;">${menuSlideList.menuContent }</a></span>
 						</li>
 					</c:forEach>
