@@ -1,0 +1,335 @@
+000리
+create table customer(
+id      number constraint customer_id_pk primary key,
+name	varchar2(50) not null,
+gender	varchar2(3) default '남' not null,
+email	varchar2(50),
+phone	varchar2(13)
+);
+
+customer 테이블의 id 컬럼에 적용한 시퀀스
+create sequence seq_customer
+start with 1 increment by 1;
+
+customer 테이블의 id 컬럼에 시퀀스를 적용시켜줄 트리거
+create or replace trigger trg_customer
+	before insert on customer
+	for each row
+begin
+	select seq_customer.nextval into :new.id from dual;
+end;
+/
+
+
+브라우저에서 uri/url 을 통해 요청
+-> Controller 의 해당요청에 대해 매핑된 메소드에서 처리
+   : @RequestMapping(요청uri) 의 메소드
+   : service 의 해당 메소드 호출 
+      service 객체의 주소를 자동주입: @Autowired
+-> Service 에서는 DAO의 메소드를 호출
+   : DAO 의 해당 메소드   
+     DB와 연결해 알맞은 처리를 한다.
+     dao 객체의 주소를 자동주입: @Autowired
+-> DAO 에서는 mapper 파일의 태그를 실행한다.
+     SqlSession 객체의 주소를 자동주입: @Autowired
+          
+
+Service : interface 를 선언한 후
+          interface 를 구현하는 클래스를 선언한다.
+          interface 를 구현하는 클래스에는 @Service 를 지정한다.
+          
+DAO : interface 를 선언한 후
+      interface 를 구현하는 클래스를 선언한다.
+      interface 를 구현하는 클래스에는 @Repositoy 를 지정한다.
+   
+@Autowired 를 통해 자동주입하고자 하는 객체들을 
+스캐닝의 대상으로 지정해야 한다.
+root-context.xml 에서 context:component-scan 태그에 패키지를 선언
+
+      
+http://mybatis.org 접속
+좌측 상단 검색창에  mapper 입력후 검색
+Configuration 태그 DOCTYPE 과 Mapper 태그 DOCTYPE 중에 
+Mapper 태그 DOCTYPE 을 복사하여 mapper 파일에 붙인다.
+
+
+작성하는 모든 view(jsp) 페이지마다 
+header, footer 를 갖게 하고자 한다
+: tiles 처리
+mvnrepository.com  에서 tiles 라이브러리 태그를 복사.
+
+공지사항 관리
+create table notice(
+id		number constraint notice_id_pk primary key,
+title	varchar2(300) not null,
+writer	varchar2(50) not null,
+content	varchar2(4000) not null,
+writedate	date default sysdate not null,
+readcnt	number default 0,
+filename	varchar2(300),
+filepath	varchar2(300),
+root	number,  //원글의 id
+step	number default 0, //답글간의 순서
+indent	number default 0  //들여쓰기 정도
+);
+
+notice 테이블에 답글관련 컬럼추가하기
+alter table notice
+add ( root	number, 
+		step	number default 0,
+		indent	number default 0 );
+
+활동하고 있는 트리거를 중지시킨다. : disable/enable
+alter trigger trg_notice disable;
+
+
+notice 테이블에 readcnt 컬럼추가하기
+alter table notice add ( readcnt	number default 0 );
+
+notice 테이블에 filename, filepath 컬럼추가하기
+alter table notice add( 
+filename	varchar2(300),
+filepath	varchar2(300) );
+
+create sequence seq_notice
+start with 1 increment by 1;
+
+create or replace trigger trg_notice
+	before insert on notice
+	for each row
+begin
+	select seq_notice.nextval into :new.id from dual;
+end;
+/
+
+공지사항 글 추가 삽입저장하기
+insert into notice (id, title, writer, content,root)
+select seq_notice.nextval, title, writer, content, 
+       seq_notice.currval from notice;
+commit;
+
+
+회원정보관리
+create table member(
+name		varchar2(50) not null,
+userid		varchar2(50) 
+			constraint member_userid_pk primary key,
+userpwd		raw(100) not null,
+gender		varchar2(3) default '남' not null,
+email		varchar2(50) not null,
+birth		date,
+phone		varchar2(13),
+address		varchar2(200),
+post		varchar2(7),
+admin		varchar2(1) default 'N'
+);
+
+
+비밀번호암호화처리함수
+create or replace function 
+	fn_encrypt(input varchar2, 
+				key_data varchar2 := 'sw20180903') 
+return raw is
+	input_raw  raw(100);
+	key_raw	   raw(100);
+	suit       pls_integer; 				
+begin
+	/* 암호화대상/key 문자를 raw타입으로 변환*/
+	input_raw := utl_i18n.string_to_raw(input, 'AL32UTF8');
+	key_raw := utl_i18n.string_to_raw(key_data, 'AL32UTF8');
+	suit := dbms_crypto.des_cbc_pkcs5; /* 암호화슈트 */
+	return dbms_crypto.encrypt(src=>input_raw, key=>key_raw,
+	 					typ=>suit);	
+end;
+/
+
+복호화함수
+create or replace function 
+		fn_decrypt(input_raw varchar2, 
+					key_data varchar2 := 'sw20180903' )
+return varchar2 is
+	key_raw raw(100);
+	suit   pls_integer;
+	input  raw(100);
+begin
+	key_raw := utl_i18n.string_to_raw(key_data, 'AL32UTF8');
+	suit := dbms_crypto.des_cbc_pkcs5; /* 암호화슈트 */
+	/* raw 타입의 복호화된 데이터가 반환됨 */
+	input := dbms_crypto.decrypt(src=>input_raw, typ=>suit,
+						key=>key_raw);
+	/*  반환된  raw 타입을 문자로 변환 */
+	return utl_i18n.raw_to_char(input, 'AL32UTF8');						
+end;
+/
+					
+
+
+이메일 전송을 위한 라이브러리
+: mvnrepository.com 에서 email 검색
+-> Apache Commons Email 선택
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-email</artifactId>
+    <version>1.5</version>
+</dependency>
+
+게시글관리
+create table board(
+id			number constraint board_id_pk primary key,
+userid		varchar2(50) not null,
+title		varchar2(300) not null,
+content		varchar2(4000) not null,
+writedate	date default sysdate,
+readcnt		number default 0,
+filename	varchar2(300),
+filepath	varchar2(300) 
+);
+
+create sequence seq_board
+start with 1 increment by 1;
+
+create or replace trigger trg_board
+	before insert on board
+	for each row
+begin
+	select seq_board.nextval into :new.id 
+	from dual;
+end;
+/
+
+
+게시글 댓글정보 관리
+create table board_comment(
+id				number 
+			constraint board_comment_id_pk primary key,
+pid				number not null,
+userid			varchar2(50) not null,
+content			varchar2(300) not null,
+writedate		date default sysdate,
+constraint board_comment_pid_fk foreign key(pid)
+				references board(id) on delete cascade
+);
+
+create sequence seq_board_comment
+start with 1 increment by 1;
+
+create or replace trigger trg_board_comment
+	before insert on board_comment
+	for each row
+begin
+	select seq_board_comment.nextval 
+			into :new.id from dual;
+end;
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      
+      
+          
+          
+     
+   
+
+
+
+
+
+
+
+
+
+
+       
+       
+       
+       

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product.mapper">
+
+<select id="list" resultType="product.vo.ProductVO">
+    select p.*, d.product_img_name,d.product_img_path, d.detail_id
+	from product p, (select * from product_detail where detail_id in (select min(detail_id) from product_detail group by product_id)) d 
+	where p.product_id = d.product_id(+) 
+	and p.product_menu like  '%' || #{kind} || '%'
+    order by p.product_id
+</select>
+
+<insert id="addImg">
+	insert into product_detail (product_id, product_img_path, product_img_name)
+	values(#{product_id}, #{product_img_path}, #{product_img_name})
+</insert>
+
+<!-- 신규 값은 product_id값 시퀀스 -->
+<insert id="insertImg">
+	insert into product_detail (product_id, product_img_path, product_img_name)
+	values((select max(product_id) from product), #{product_img_path}, #{product_img_name})
+</insert>
+
+<insert id="insert">
+	insert into product (product_name, product_price, product_menu)
+	values(#{product_name}, #{product_price}, #{product_menu})
+</insert>
+
+<select id="detail" resultType="product.vo.ProductVO">
+    select p.*, d.product_img_name,d.product_img_path, d.detail_id
+	from product p, (select * from product_detail where detail_id in (select min(detail_id) from product_detail group by product_id)) d 
+	where p.product_id = d.product_id(+) 
+	and p.product_id = #{product_id}
+    order by p.product_id
+</select>
+
+<update id="updateImg">
+	update product_detail
+	set  product_img_path = #{product_img_path}, product_img_name = #{product_img_name}
+	where detail_id = #{detail_id}
+</update>
+
+<update id="update">
+	update product
+	set product_name = #{product_name}, product_price = #{product_price}
+	where product_id = #{product_id}
+</update>
+
+<select id="detailPage" resultType="product.vo.ProductVO">    
+     select p.*, d.product_img_name, d.product_img_path, d.detail_id 
+     from product p, product_detail d 
+     where p.product_id = d.product_id(+) 
+     and p.product_id = #{product_id}
+     order by p.product_id, d.detail_id
+</select>
+
+
+<delete id="delete">
+	delete from product where product_id = #{product_id}
+</delete>
+
+
+<delete id="deleteImgs">
+	delete from product_detail where detail_id in <foreach item="detail_id"  collection="list_del"  separator="," open="(" close=")">#{detail_id}</foreach>
+</delete>
+
+<update id="updateImgs">
+	update product_detail
+	set product_img_path = case detail_id <foreach item="vo" collection="list_up">when ${vo.detail_id} then <![CDATA[']]>${vo.product_img_path}<![CDATA[']]> </foreach> else null end,
+		 product_img_name = case detail_id <foreach item="vo" collection="list_up">when ${vo.detail_id} then <![CDATA[']]>${vo.product_img_name}<![CDATA[']]> </foreach> else null  end
+	where detail_id in <foreach item="vo" collection="list_up" separator="," open="(" close=")">${vo.detail_id}</foreach>
+</update>
+
+
+<insert id="new_imgs">
+	insert all
+       <foreach item="vo" collection="list_new">
+         into product_detail(product_id, product_img_path, product_img_name) 
+         values (${vo.product_id}, <![CDATA[']]>${vo.product_img_path}<![CDATA[']]>, <![CDATA[']]>${vo.product_img_name}<![CDATA[']]>)
+       </foreach>
+        select * from dual
+</insert>
+</mapper>
+
+
+
+

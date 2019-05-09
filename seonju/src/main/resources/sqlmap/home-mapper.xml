@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="home.mapper">
+	
+	<update id="mainSlideUpdate">
+		uptate mainSlide set msname = #{msname}, mspath = #{mspath} where msId=#{msId}
+	</update>
+	
+	<select id="mainSlideDetail" resultType="home.vo.HomeMainSlideVO">
+		select * from mainSlide where msId=#{msId}
+	</select>
+	
+	<select id="mapList" resultType="map.vo.MapVO">
+		select * from storeMap
+	</select>
+	
+	<delete id="mainVideoDelete">
+		delete from mainVideo where videoNum=#{videoNum}
+	</delete>
+
+	<delete id="mainSlideDelete">
+		delete from mainSlide where msId=#{msId}
+	</delete>
+	
+	<delete id="menuDelete">
+		delete from menuSlide where menuId=#{menuId}
+	</delete>
+	
+	<insert id="mainvideoinsert">
+		insert into mainVideo (videoNum, videoPath)
+		values (seq_videoNum.nextval, #{videoPath} )
+	</insert>
+	
+	<insert id="menuslideinsert">
+		insert into menuSlide (menuContent, menuName, menupath, menuId)
+		values (#{menuContent}, #{menuName}, #{menupath}, seq_menuId.nextval )
+	</insert>
+	
+	<insert id="mainslideinsert">
+		insert into mainSlide (msname, mspath, msId)
+		values (#{msname}, #{mspath}, seq_msId.nextval )
+	</insert>
+
+	<select id="mainSlideList" resultType="home.vo.HomeMainSlideVO">
+		select * from mainSlide order by msId asc
+	</select>
+
+	<select id="videoList" resultType="home.vo.HomeVideoVO">
+		select * from mainVideo
+	</select>
+
+	<select id="menuSlideList" resultType="home.vo.HomeMenuSlideVO">
+		select * from menuSlide order by menuId asc
+	</select>
+	
+	<select id="list" resultType="home.vo.HomeVO">
+		select * from cs order by writedate desc
+	</select>
+</mapper>

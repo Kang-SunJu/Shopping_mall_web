@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.mapper">
+
+<sql id="search">
+	<if test=" search =='all' ">
+	where userid in (select userid from testmember 
+						where name like '%' || #{keyword} || '%' )
+	or title like '%' || #{keyword} || '%'
+	or content like '%' || #{keyword} || '%'
+	</if>
+	<if test=" search == 'title' or search == 'content' ">
+		where ${search} like '%' || #{keyword} || '%'
+	</if>
+	<if test=" search == 'writer' ">
+		where userid in (select userid from testmember 
+						where name like '%' || #{keyword} || '%' )
+	</if>
+</sql>
+
+<select id="total" resultType="integer">
+select count(*) from ${subject} <include refid="search"/>
+</select>
+
+<select id="list" resultType="board.vo.BoardVO">
+select b.*, (select name from testmember where userid = b.userid) name from 
+(select b.*, rownum no from 
+	(select * from ${subject} <include refid="search"/> 
+	 order by id) b
+order by no desc) b
+where no between #{beginList} and #{endList}
+</select>
+
+<insert id="insert">
+insert into ${subject} (title, content, userid, filename, filepath)
+values ( #{title}, #{content}, #{userid}, #{filename}, #{filepath} )
+</insert>
+
+<select id="detail" resultType="board.vo.BoardVO">
+select (select name from testmember 
+		where userid=b.userid) name, b.* from ${subject} b
+where id = #{id}
+</select>
+
+<update id="update">
+update ${subject} set title = #{title}, content = #{content},
+		         filename = #{filename}, filepath = #{filepath}
+where id = #{id}		         
+</update>
+
+<delete id="delete">
+delete from ${subject} where id = #{id}
+</delete>
+
+</mapper>
