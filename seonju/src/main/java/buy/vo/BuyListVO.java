@@ -16,7 +16,6 @@ public class BuyListVO {
 	private String product_img_path;
 	
 	
-	
 	public String getProduct_img_path() {
 		return product_img_path;
 	}
