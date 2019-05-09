@@ -150,6 +150,10 @@ a:hover {
 	margin-left: 35px;
 }
 
+.sub li{
+	margin: 5px 0 5px 0;
+}
+
 .sub li a {
 	font-size: 18px;
 	font-weight: 400;
