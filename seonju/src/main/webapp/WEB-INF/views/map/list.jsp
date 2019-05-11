@@ -195,9 +195,9 @@ body {
 
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new daum.maps.services.Geocoder();
-		if('${no}'==1){
+		if('${no}'==0){
 			var juso = '광주 광산구 송정로8번길 27 1층';
-		}else if('${no}'==2){
+		}else if('${no}'==1){
 			var juso = '전라남도 여수시 중앙로 43';
 		}
 
