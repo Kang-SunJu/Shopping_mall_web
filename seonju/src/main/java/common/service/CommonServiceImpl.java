@@ -26,28 +26,21 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public String upload(String category, MultipartFile file, HttpSession session) {
 
+		  //물리적 실제경로
 	      String project = session.getServletContext().getRealPath("");
 	      
-	      //.metadata/.../smart/
+	      //저장할 위치등록
 	      String upload = project + "resources"+ File.separator+ "upload";
-	      // --> ..metadata/.../wtpwebapps/smart/resources/upload
 	      String uploadFolder = makeFolder(category, upload);
 
 	      String uuid = /*UUID.randomUUID().toString() + "_" +*/ file.getOriginalFilename();
 
 	      try {
 	         file.transferTo( new File(uploadFolder, uuid));
-	         //   uuid :2d1860f1-a48f-48a2-b1cb-3d027ae22896_register_back6-copy 
-
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	         System.out.println(e.getMessage());
-	         //--> ..metadata/.../upload/notice/2019/01/08
 	      }
-	      //uploadFolder : Study_Spring/.etadatea/
-//	            ....smart/resources/upload/notice/2019/01/08
-	      //project : Study_Spring/.etadatea/....smart/
-	      //   /upload/notice/2019/01/08/2d1860f1-a48f-48a2-b1cb-3d027ae22896_register_back6-copy �뤆�룊�삕 return �뜝�럥彛�
 
 	      return uploadFolder.replace(project+"resources", "")
 	            + File.separator + uuid;

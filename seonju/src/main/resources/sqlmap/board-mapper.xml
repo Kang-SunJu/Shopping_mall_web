@@ -18,10 +18,6 @@
 	</if>
 </sql>
 
-<select id="total" resultType="integer">
-select count(*) from ${subject} <include refid="search"/>
-</select>
-
 <select id="list" resultType="board.vo.BoardVO">
 select b.*, (select name from testmember where userid = b.userid) name from 
 (select b.*, rownum no from 
@@ -30,6 +26,11 @@ select b.*, (select name from testmember where userid = b.userid) name from
 order by no desc) b
 where no between #{beginList} and #{endList}
 </select>
+
+<select id="total" resultType="integer">
+select count(*) from ${subject} <include refid="search"/>
+</select>
+
 
 <insert id="insert">
 insert into ${subject} (title, content, userid, filename, filepath)

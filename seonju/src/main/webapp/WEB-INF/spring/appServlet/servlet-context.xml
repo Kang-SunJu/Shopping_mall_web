@@ -44,7 +44,7 @@
 	<beans:bean id="naverLoginBO" class="naver.api.NaverLoginBO"/>
 	<context:component-scan base-package="naver.api" />
 	
-	<context:component-scan base-package="com.hanul.smart" />
+	<context:component-scan base-package="com.seonju.web" />
 	
 	
 	

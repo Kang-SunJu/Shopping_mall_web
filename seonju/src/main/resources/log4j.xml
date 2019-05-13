@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.hanul.smart">
+	<logger name="com.seonju.web">
 		<level value="info" />
 	</logger>
 	

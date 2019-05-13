@@ -20,7 +20,7 @@ body {
 	width: 1280px;
 	margin: 5px auto;
 	overflow: hidden;
-	height: 600px;
+	min-height: 500px;
 }
 
 .detailLeft {

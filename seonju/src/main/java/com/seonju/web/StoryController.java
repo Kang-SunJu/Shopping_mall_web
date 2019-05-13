@@ -1,4 +1,4 @@
-package com.hanul.smart;
+package com.seonju.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

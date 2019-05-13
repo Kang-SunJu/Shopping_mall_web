@@ -1,4 +1,4 @@
-package com.hanul.smart;
+package com.seonju.web;
 
 import java.util.HashMap;
 

@@ -11,8 +11,8 @@ ${status.index==0 ? '<hr>' : '' }
 <!-- 로그인한 사용자가 작성한 글에 대해서만 수정,삭제 가능 -->
 <c:if test="${vo.userid eq login_info.userid }">
 	<span style="float: right;">
-		<a onclick="go_modify_save( ${vo.id}, ${subject } )" class="btn-fill-small" id="btn-modify-save-${vo.id }">수정</a>
-		<a onclick="go_delete_cancel( ${vo.id}, ${subject } )" class="btn-fill-small" id="btn-delete-cancel-${vo.id }">삭제</a>
+		<a onclick="go_modify_save( ${vo.id} )" class="btn-fill-small" id="btn-modify-save-${vo.id }">수정</a>
+		<a onclick="go_delete_cancel( ${vo.id} )" class="btn-fill-small" id="btn-delete-cancel-${vo.id }">삭제</a>
 	</span>
 </c:if>
 </div>
@@ -24,7 +24,7 @@ ${fn: replace( fn:replace(vo.content, lf, '<br>'), crlf, '<br>') }
 <hr>
 </c:forEach>    
 <script>
-function go_delete_cancel( id, subject ){
+function go_delete_cancel( id ){
 	//삭제버튼, 취소버튼
 	//원래글이 보이고, 변경입력글은 안보이게
 	if( $('#btn-delete-cancel-' + id).text() == "취소"  ){
@@ -32,7 +32,7 @@ function go_delete_cancel( id, subject ){
 	}else{
 		if( confirm("정말 삭제?") ){
 			$.ajax({
-				url: 'board/comment/delete/'+ id +"/"+ subject,
+				url: 'board/comment/delete/'+ id +'/${subject}',
 				success: function(){
 					go_comment_list();
 				},
@@ -43,7 +43,7 @@ function go_delete_cancel( id, subject ){
 		}
 	}
 }
-function go_modify_save(id, subject){
+function go_modify_save(id){
 	//버튼의 글자가 수정이면 수정모드로 
 	//            저장이면 저장처리로
 	if( $('#btn-modify-save-' + id).text() == '수정' ){
@@ -60,7 +60,7 @@ function go_modify_save(id, subject){
 		var comment = new Object();
 		comment.id = id;
 		comment.content = $('#modify-comment-' +id).val();
-		comment.subject = subject;
+		comment.subject = '${subject}';
 		$.ajax({
 			type: 'post',
 			data: JSON.stringify( comment ),

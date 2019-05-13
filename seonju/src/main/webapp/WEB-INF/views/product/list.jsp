@@ -309,6 +309,7 @@ h1 {
       }
     });
  
+  //버튼 클릭시 다이얼로그 활성화
     $( "#create-user" ).button().on( "click", function() {
         dialog.dialog( "open" );
       });
@@ -336,7 +337,7 @@ h1 {
           }
 	     }
   
-  //버튼 클릭시 다이얼로그 활성화
+  
 	$(document).on('click', '#delete', function(){
 			$('original').html('');
 	});

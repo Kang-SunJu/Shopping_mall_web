@@ -8,12 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:getAsString name="appTitle" /> 쑥's 초코파이</title>
-<link rel="stylesheet" type="text/css" 
-		href="css/common.css?version=${vs }">
-<link rel="icon" type="image/x-icon" 
-			href="img/ss_webpage_icon.png">		
-<script type="text/javascript" 
-	src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/common.css?version=${vs }">
+<link rel="icon" type="image/x-icon" href="img/ss_webpage_icon.png">		
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <tiles:insertAttribute name="header"/>

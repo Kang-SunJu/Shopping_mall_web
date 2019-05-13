@@ -1,4 +1,4 @@
-package com.hanul.smart;
+package com.seonju.web;
 
 
 import java.io.File;
@@ -47,14 +47,16 @@ public class ProductController {
 		}
 	
 	
+	//메뉴 추가
 	@ResponseBody @RequestMapping("/add_menu.pd")
 	public boolean add_menu(ProductVO vo,  @RequestParam MultipartFile file,
 			HttpSession ss) {
+
+		//메뉴추가 성공여부
 		boolean succ = false;
-		
 		succ = proService.insert(vo);
 
-		//이미지가 있다면
+		//이미지가 있다면 파일 업로드
 		if (file.getSize() > 0) {
 			vo.setProduct_img_name(file.getOriginalFilename());
 			vo.setProduct_img_path(common.upload2("product", file, ss));

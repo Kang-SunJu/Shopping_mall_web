@@ -1,4 +1,4 @@
-package com.hanul.smart;
+package com.seonju.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

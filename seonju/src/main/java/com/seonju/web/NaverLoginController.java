@@ -1,4 +1,4 @@
-package com.hanul.smart;
+package com.seonju.web;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

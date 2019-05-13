@@ -1,4 +1,4 @@
-package com.hanul.smart;
+package com.seonju.web;
 
 import java.io.File;
 import java.util.HashMap;
@@ -175,14 +175,17 @@ public class BoardController {
 			
 			model.addAttribute("appTitle", "게시글-");
 			model.addAttribute("category", "qu");
-			//DB에서 게시글목록을 조회해와 화면에 출력
-
-			page.setCurPage(curPage);
-			page.setSearch(keyword.isEmpty() ? "" : search);
-			page.setKeyword(keyword);
 			
+			//조회할 페이지
+			page.setCurPage(curPage);
+			//검색할 부분(없다면 전부)
+			page.setSearch(keyword.isEmpty() ? "" : search);
+			//검색할 내용
+			page.setKeyword(keyword);
+			//검색할 게시판
 			page.setSubject(subject);
 			
+			//DB에서 조건과 맞는 게시글목록 조회
 			model.addAttribute( "page", service.list(page) );
 			model.addAttribute( "subject", subject );
 			

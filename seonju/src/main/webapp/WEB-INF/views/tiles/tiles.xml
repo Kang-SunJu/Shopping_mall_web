@@ -17,8 +17,6 @@
 		<put-attribute name="quickMenu" value="/WEB-INF/views/include/quickMenu.jsp"/>
 	</definition>
 		
-		
-	<!-- (1) -->
 	<!-- no tiles -->
 	<definition name="member/*" extends="noLayout">
           <put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp"></put-attribute>
@@ -30,7 +28,7 @@
     </definition>
 		
 	<!-- (2) -->
-	<!-- 	home -->
+	<!-- tiles -->
 	<definition name="*" extends="layout" >
 		<put-attribute name="main"  value="/WEB-INF/views/{1}.jsp"/>
 	</definition>

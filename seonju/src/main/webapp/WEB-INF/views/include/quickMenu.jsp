@@ -4,10 +4,10 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean" rel="stylesheet">
 <style>
 #quickMenu {
-	position: fixed;
+	position: absolute;
 	width: 80px;
 	height: 320px;
-	right: 20px;
+	right: 1%;
 	top: 250px;
 	background-color: #ffffff;
 	box-shadow: 0 0 1px 1px #e6e6e6;
